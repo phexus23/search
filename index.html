@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vafor</title>
@@ -6,11 +8,10 @@
     <meta name="keywords" content="maxwellstevenson.com, vafor, vafor IT, Vafor IT work">
     <meta name="author" content="Vafor">
     <meta name="robots" content="index, follow">
-    
+
     <!-- Import CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://raw.githubusercontent.com/phexus23/search/refs/heads/main/styles.css">
-
 </head>
 <body>
     <div id="mySideNav" class="sidenav">
@@ -34,7 +35,7 @@
 
     <div class="wrap">
         <div class="search">
-            <input id="searchTerm" type="text" class="searchTerm" placeholder="What are you looking to play?">
+            <input id="searchTerm" type="text" class="searchTerm" placeholder="What are you looking to play?" onkeypress="handleKeyPress(event)">
             <button type="submit" class="searchButton" onclick="displayResults()">
                 <i class="fa fa-search"></i>
             </button>
@@ -46,15 +47,43 @@
     </div>
 
     <script>
+        const openInIframe = (url) => {
+            const win = window.open();
+            win.document.body.style.margin = "0";
+            win.document.body.style.height = "100vh";
+            const iframe = win.document.createElement("iframe");
+            iframe.style.border = "none";
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.referrerpolicy = "no-referrer";
+            iframe.allow = "fullscreen";
+            iframe.src = url;
+            win.document.body.appendChild(iframe);
+        };
+
+        const displayResults = () => {
+            let customUrl = document.getElementById("searchTerm").value.trim();
+            if (!customUrl.startsWith("https://") && !customUrl.startsWith("http://")) {
+                customUrl = `https://${customUrl}`;
+            }
+            openInIframe(customUrl);
+        };
+
+        const handleKeyPress = (event) => {
+            if (event.key === "Enter") {
+                displayResults();
+            }
+        };
+
         function openNav() {
             document.getElementById("mySideNav").style.width = "250px";
             document.getElementById("br").style.display = "none";
         }
+
         function closeNav() {
             document.getElementById("mySideNav").style.width = "0";
             document.getElementById("br").style.display = "block";
         }
     </script>
-
-
-</body></html>
+</body>
+</html>
